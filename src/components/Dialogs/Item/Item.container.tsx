@@ -1,6 +1,6 @@
-import * as React from "react";
-import Item from "./Item";
-import itemTestData from "./Item.tesdata";
+import * as React from 'react';
+import Item from './Item';
+import itemTestData from './Item.tesdata';
 
 export interface IItemContainerProps {}
 
@@ -17,6 +17,6 @@ export default class ItemContainer extends React.Component<
   }
 
   public render() {
-    return <Item {...itemTestData} />;
+    return <Item {...itemTestData()} />;
   }
 }
