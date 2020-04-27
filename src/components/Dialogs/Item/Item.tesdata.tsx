@@ -21,7 +21,7 @@ let createTestData = (): IItemProps => {
       label = username;
       break;
     default:
-      ava = `https://picsum.photos/48`;
+      ava = `https://picsum.photos/id/${faker.random.number(1000)}/48`;
       label = faker.random.words();
       break;
   }
