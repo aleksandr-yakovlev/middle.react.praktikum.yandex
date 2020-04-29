@@ -1,16 +1,22 @@
 import React, { FunctionComponent } from 'react';
+
+import { IChat } from 'types';
+
 import List from '../../UI/List';
-import Item from '../Item';
+import { Item } from '../Item';
 
 import styles from './Sidebar.module.scss';
 
-export interface ISidebarProps {}
+export interface ISidebarProps {
+  chatList: IChat[];
+}
 
-const Sidebar: FunctionComponent<ISidebarProps> = (props) => {
-  let a = [];
-  for (let index = 0; index < 50; index++) {
-    a.push(<Item key={index} />);
-  }
+export const Sidebar: FunctionComponent<ISidebarProps> = (props) => {
+  const { chatList } = { ...props };
+  let a: React.ReactElement<Item>[] = [];
+  chatList.forEach((element) => {
+    a.push(<Item key={element.chatId} {...element} />);
+  });
   return (
     <div className={styles.sidebar}>
       <div className={styles.chats}>
@@ -19,5 +25,3 @@ const Sidebar: FunctionComponent<ISidebarProps> = (props) => {
     </div>
   );
 };
-
-export default Sidebar;

@@ -1,41 +1,43 @@
-import React from "react";
-import styles from "./Item.module.scss";
+import React from 'react';
 
-export enum ETypeItem {
-  personal = 0,
-  group,
-  channel,
-}
+import { IProps } from './types';
 
-export interface IItemProps {
-  type: ETypeItem;
-  ava: string;
-  label: string;
-  username: string;
-  shortmessage: string;
-  timestamp: Date;
-}
+import styles from './Item.module.scss';
 
-const Item = (props: IItemProps) => {
+const dateCompare = (date1: Date, date2: Date = new Date()): boolean => {
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate()
+  );
+};
+
+export const Item = (props: IProps) => {
+  const { ava, label, username, shortmessage, timestamp } = props;
   return (
     <div className={styles.item}>
       <div className={styles.left}>
-        <img className={styles.ava} src={props.ava} alt="" />
+        <img className={styles.ava} src={ava} alt="" />
       </div>
       <div className={styles.right}>
         <p className={styles.top}>
-          <span className={styles.label}>{props.label}</span>
+          <span className={styles.label}>{label}</span>
           <span className={styles.timestamp}>
-            {props.timestamp.toLocaleDateString()}
+            {timestamp
+              ? dateCompare(timestamp)
+                ? timestamp.toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })
+                : timestamp.toLocaleDateString()
+              : null}
           </span>
         </p>
         <p className={styles.bottom}>
-          <span>{props.username}: </span>
-          <span>{props.shortmessage}</span>
+          <span>{username}: </span>
+          <span>{shortmessage}</span>
         </p>
       </div>
     </div>
   );
 };
-
-export default Item;

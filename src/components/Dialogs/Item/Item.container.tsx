@@ -1,22 +1,34 @@
 import * as React from 'react';
-import Item from './Item';
-import itemTestData from './Item.tesdata';
 
-export interface IItemContainerProps {}
+import { OwnProps, StateProps } from './types';
 
-export interface IItemState {}
+import { Item } from './Item';
+import getTestData from './Item.tesdata';
 
-export default class ItemContainer extends React.Component<
-  IItemContainerProps,
-  IItemState
-> {
-  constructor(props: IItemContainerProps) {
+class ItemContainer extends React.Component<OwnProps, StateProps> {
+  constructor(props: OwnProps) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      type: 0,
+      ava: '',
+      label: '',
+      username: '',
+      shortmessage: '',
+      timestamp: undefined,
+    };
+  }
+
+  componentDidMount() {
+    getTestData(this.props.chatId).then((response) =>
+      this.setState({ ...response }),
+    );
   }
 
   public render() {
-    return <Item {...itemTestData()} />;
+    const { chatId, isPinned } = { ...this.props };
+    return <Item {...this.state} chatId={chatId} isPinned={isPinned} />;
   }
 }
+
+export { ItemContainer as Item };
