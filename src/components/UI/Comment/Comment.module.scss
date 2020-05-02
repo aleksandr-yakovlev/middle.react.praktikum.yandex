@@ -1,0 +1,41 @@
+.comment {
+  display: flex;
+  height: 51px;
+  align-items: center;
+  padding: 5px 15px;
+  color: #666;
+  font-weight: 500;
+  p {
+    margin: 0;
+  }
+  .left {
+    //width: 75px;
+    .avatar {
+      padding-right: 7px;
+      min-width: 48px;
+      width: 48px;
+      height: 48px;
+    }
+  }
+  .right {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    .top {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      .label {
+        color: #000;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 16px;
+      }
+      .timestamp {
+        font-weight: 100;
+        font-size: 12px;
+      }
+    }
+  }
+}
