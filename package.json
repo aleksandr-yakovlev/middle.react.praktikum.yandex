@@ -2,7 +2,7 @@
   "name": "react-messenger",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://http://aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/",
+  "homepage": "http://aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
