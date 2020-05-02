@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/bubble/static/css/main.a7dad95f.chunk.css",
-    "main.js": "/bubble/static/js/main.92cfc2cb.chunk.js",
-    "main.js.map": "/bubble/static/js/main.92cfc2cb.chunk.js.map",
-    "runtime-main.js": "/bubble/static/js/runtime-main.996b95e0.js",
-    "runtime-main.js.map": "/bubble/static/js/runtime-main.996b95e0.js.map",
-    "static/js/2.e3cbda89.chunk.js": "/bubble/static/js/2.e3cbda89.chunk.js",
-    "static/js/2.e3cbda89.chunk.js.map": "/bubble/static/js/2.e3cbda89.chunk.js.map",
-    "index.html": "/bubble/index.html",
-    "precache-manifest.a2931d32957b06a1b4d288020a4bf972.js": "/bubble/precache-manifest.a2931d32957b06a1b4d288020a4bf972.js",
-    "service-worker.js": "/bubble/service-worker.js",
-    "static/css/main.a7dad95f.chunk.css.map": "/bubble/static/css/main.a7dad95f.chunk.css.map",
-    "static/js/2.e3cbda89.chunk.js.LICENSE.txt": "/bubble/static/js/2.e3cbda89.chunk.js.LICENSE.txt"
+    "main.css": "//aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/static/css/main.a7dad95f.chunk.css",
+    "main.js": "//aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/static/js/main.c634406d.chunk.js",
+    "main.js.map": "//aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/static/js/main.c634406d.chunk.js.map",
+    "runtime-main.js": "//aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/static/js/runtime-main.5a7f7c42.js",
+    "runtime-main.js.map": "//aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/static/js/runtime-main.5a7f7c42.js.map",
+    "static/js/2.e3cbda89.chunk.js": "//aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/static/js/2.e3cbda89.chunk.js",
+    "static/js/2.e3cbda89.chunk.js.map": "//aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/static/js/2.e3cbda89.chunk.js.map",
+    "index.html": "//aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/index.html",
+    "precache-manifest.caf2ac8b8473ab99504faa13bbbf8976.js": "//aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/precache-manifest.caf2ac8b8473ab99504faa13bbbf8976.js",
+    "service-worker.js": "//aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/service-worker.js",
+    "static/css/main.a7dad95f.chunk.css.map": "//aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/static/css/main.a7dad95f.chunk.css.map",
+    "static/js/2.e3cbda89.chunk.js.LICENSE.txt": "//aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/static/js/2.e3cbda89.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.996b95e0.js",
+    "static/js/runtime-main.5a7f7c42.js",
     "static/js/2.e3cbda89.chunk.js",
     "static/css/main.a7dad95f.chunk.css",
-    "static/js/main.92cfc2cb.chunk.js"
+    "static/js/main.c634406d.chunk.js"
   ]
 }
