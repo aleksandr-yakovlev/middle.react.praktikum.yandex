@@ -31,7 +31,7 @@ let getTestData = (id: string): Promise<StateProps> => {
       currentDate.setTime(currentDate.getTime() - 60 * 1000 * parseInt(id)),
     );
     const itemTestData: StateProps = {
-      type: itemType,
+      chatType: itemType,
       ava: ava,
       label: label,
       username: username,

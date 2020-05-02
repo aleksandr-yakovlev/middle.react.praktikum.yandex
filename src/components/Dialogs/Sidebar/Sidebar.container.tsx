@@ -2,6 +2,7 @@ import * as React from 'react';
 import faker from 'faker';
 
 import { IChat } from 'types';
+import { OwnProps, StateProps } from './types';
 
 import { Sidebar } from './Sidebar';
 
@@ -23,17 +24,8 @@ const getChats = (chatCount: number = 50): Promise<IChat[]> => {
   });
 };
 
-export interface ISidebarContainerProps {}
-
-export interface ISidebarState {
-  chatList: IChat[];
-}
-
-export default class SidebarContainer extends React.Component<
-  ISidebarContainerProps,
-  ISidebarState
-> {
-  constructor(props: ISidebarContainerProps) {
+class SidebarContainer extends React.Component<OwnProps, StateProps> {
+  constructor(props: OwnProps) {
     super(props);
 
     this.state = { chatList: [] };
@@ -44,6 +36,9 @@ export default class SidebarContainer extends React.Component<
   }
 
   public render() {
+    //console.log(this.props);
     return <Sidebar chatList={this.state.chatList} {...this.props} />;
   }
 }
+
+export { SidebarContainer as Sidebar };

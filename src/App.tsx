@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import Sidebar from './components/Dialogs/Sidebar';
+import ScreensRoot from './screens/Root';
 
 function App() {
   return (
     <div className="App">
-      <Sidebar />
+      <ScreensRoot />
     </div>
   );
 }

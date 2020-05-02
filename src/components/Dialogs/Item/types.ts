@@ -11,13 +11,16 @@ export enum ETypeItem {
 export interface IDefaultProps {}
 
 // these are all the required props
-export interface IProps extends Partial<IDefaultProps>, IChat {
-  type: ETypeItem;
+export interface IProps
+  extends Partial<IDefaultProps>,
+    IChat,
+    React.HTMLProps<HTMLDivElement> {
+  chatType: ETypeItem;
   ava: string;
   label: string;
-  username: string;
+  username?: string;
   shortmessage: string;
-  timestamp: Date | undefined;
+  timestamp?: Date;
 }
 
 export interface IState {
@@ -32,6 +35,9 @@ export interface IContext {
 
 export type StateProps = Pick<
   IProps,
-  'type' | 'ava' | 'label' | 'username' | 'shortmessage' | 'timestamp'
+  'chatType' | 'ava' | 'label' | 'username' | 'shortmessage' | 'timestamp'
 >;
-export type OwnProps = Pick<IProps, 'chatId' | 'isPinned'>;
+export type OwnProps = Omit<
+  IProps,
+  'chatType' | 'ava' | 'label' | 'username' | 'shortmessage' | 'timestamps'
+>;

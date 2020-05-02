@@ -1,21 +1,21 @@
 import * as React from 'react';
 
-import { OwnProps, StateProps } from './types';
-
 import { Item } from './Item';
 import getTestData from './Item.tesdata';
+
+import { OwnProps, StateProps } from './types';
 
 class ItemContainer extends React.Component<OwnProps, StateProps> {
   constructor(props: OwnProps) {
     super(props);
 
     this.state = {
-      type: 0,
+      chatType: 0,
       ava: '',
       label: '',
       username: '',
       shortmessage: '',
-      timestamp: undefined,
+      // timestamp: undefined,
     };
   }
 
@@ -26,8 +26,15 @@ class ItemContainer extends React.Component<OwnProps, StateProps> {
   }
 
   public render() {
-    const { chatId, isPinned } = { ...this.props };
-    return <Item {...this.state} chatId={chatId} isPinned={isPinned} />;
+    const { chatId, isPinned, ...restProps } = { ...this.props };
+    return (
+      <Item
+        {...this.state}
+        chatId={chatId}
+        isPinned={isPinned}
+        {...restProps}
+      />
+    );
   }
 }
 
