@@ -43,4 +43,4 @@ let getTestData = (id: string): Promise<StateProps> => {
   });
 };
 
-export default getTestData;
+export { getTestData };
