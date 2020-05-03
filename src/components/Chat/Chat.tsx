@@ -5,7 +5,7 @@ import { Sidebar } from 'components/Sidebar';
 
 import styles from './Chat.module.scss';
 
-export class Chat extends React.PureComponent {
+export class Chat extends React.Component {
   readonly state = {
     chatId: undefined,
   };

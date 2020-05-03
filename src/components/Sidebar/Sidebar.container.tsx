@@ -6,6 +6,7 @@ import { OwnProps, StateProps } from './types';
 
 import { Sidebar } from './Sidebar';
 
+//шарить не нужно - грузим здесь
 //чаты уже отсортированы на стороне сервера
 const getChats = (chatCount: number = 50): Promise<IChat[]> => {
   return new Promise((resolve, reject) => {

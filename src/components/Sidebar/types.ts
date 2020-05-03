@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import { IChat } from 'types';
 
 // Component
@@ -7,7 +8,9 @@ export interface IDefaultProps {}
 
 // these are all the required props
 export interface IProps {
-  handleClickCreator: any;
+  handleClickCreator: (
+    chatId: string,
+  ) => (e: MouseEvent<HTMLDivElement>) => void;
   aChats: IChat[];
   activeChat: string | undefined;
 }
