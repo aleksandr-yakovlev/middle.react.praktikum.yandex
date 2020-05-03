@@ -24,7 +24,7 @@ export const ChatItem: FunctionComponent<IProps> = (props) => {
     chatId,
     isPinned,
     className,
-    ...restProps
+    ...divProps
   } = props;
   const contentDOM = (
     <p className={styles.content}>
@@ -42,7 +42,7 @@ export const ChatItem: FunctionComponent<IProps> = (props) => {
       : timestamp.toLocaleDateString()
     : null;
   return (
-    <div className={`${styles.item} ${className}`} {...restProps}>
+    <div className={`${styles.item} ${className}`} {...divProps}>
       <Comment
         avatar={ava}
         label={label}

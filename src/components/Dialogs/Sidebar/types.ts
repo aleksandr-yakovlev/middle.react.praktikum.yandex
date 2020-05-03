@@ -8,7 +8,7 @@ export interface IDefaultProps {}
 // these are all the required props
 export interface IProps {
   handleClickCreator: any;
-  chatList: IChat[];
+  aChats: IChat[];
   activeChat: string | undefined;
 }
 
@@ -22,6 +22,6 @@ export interface IContext {
 
 // Container
 
-export type StateProps = Pick<IProps, 'chatList'>;
+export type StateProps = Pick<IProps, 'aChats'>;
 
 export type OwnProps = Pick<IProps, 'handleClickCreator' | 'activeChat'>;

@@ -1,16 +1,6 @@
 import React from 'react';
 
-//import { IProps } from './types';
-
 import styles from './Comment.module.scss';
-
-// const dateCompare = (date1: Date, date2: Date = new Date()): boolean => {
-//   return (
-//     date1.getFullYear() === date2.getFullYear() &&
-//     date1.getMonth() === date2.getMonth() &&
-//     date1.getDate() === date2.getDate()
-//   );
-// };
 
 export interface ICommentProps {
   avatar?: React.ReactNode;
