@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "//aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/precache-manifest.caf2ac8b8473ab99504faa13bbbf8976.js"
+  "/middle.react.praktikum.yandex/precache-manifest.c2e6dd4b69933b8ba264f8c35ee79975.js"
 );
 
 self.addEventListener('message', (event) => {
@@ -33,7 +33,7 @@ workbox.core.clientsClaim();
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("//aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/index.html"), {
+workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/middle.react.praktikum.yandex/index.html"), {
   
   blacklist: [/^\/_/,/\/[^/?]+\.[^/]+$/],
 });
