@@ -4,7 +4,7 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 import InfiniteLoader from 'react-window-infinite-loader';
 
 import { IProps } from './types';
-import { Message } from 'components/Main/Message';
+import { Message } from 'components/Message';
 
 import styles from './MessageList.module.scss';
 

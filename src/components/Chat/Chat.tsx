@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { MessageList } from 'components/Main/MessageList';
-import { Sidebar } from 'components/Dialogs/Sidebar';
+import { MessageList } from 'components/MessageList';
+import { Sidebar } from 'components/Sidebar';
 
 import styles from './Chat.module.scss';
 

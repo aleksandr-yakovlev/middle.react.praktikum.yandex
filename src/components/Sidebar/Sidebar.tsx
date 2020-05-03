@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 
-import { List as ChatList } from '../../UI/List';
+import { List as ChatList } from '../UI/List';
 import { ChatItem } from '../ChatItem';
 
 import { IProps } from './types';
