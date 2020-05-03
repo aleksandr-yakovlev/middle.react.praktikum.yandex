@@ -6,6 +6,7 @@ import { OwnProps, StateProps } from './types';
 
 import { Sidebar } from './Sidebar';
 
+//шарить не нужно - грузим здесь
 //чаты уже отсортированы на стороне сервера
 const getChats = (chatCount: number = 50): Promise<IChat[]> => {
   return new Promise((resolve, reject) => {
@@ -13,7 +14,7 @@ const getChats = (chatCount: number = 50): Promise<IChat[]> => {
     let id = 0;
     for (let index = 0; index < chatCount; index++) {
       //расчетный id нужен чтобы вычислить дату на тестовых данных
-      id += (index + 1) * faker.random.number(100);
+      id += ++index * faker.random.number(100);
       let chat: IChat = {
         chatId: id.toString(),
         isPinned: false,
@@ -28,16 +29,22 @@ class SidebarContainer extends React.Component<OwnProps, StateProps> {
   constructor(props: OwnProps) {
     super(props);
 
-    this.state = { chatList: [] };
+    this.state = { aChats: [] };
   }
 
   componentDidMount() {
-    getChats().then((response) => this.setState({ chatList: response }));
+    getChats().then((response) => this.setState({ aChats: response }));
   }
 
   public render() {
-    //console.log(this.props);
-    return <Sidebar chatList={this.state.chatList} {...this.props} />;
+    const { handleClickCreator, activeChat } = { ...this.props };
+    return (
+      <Sidebar
+        aChats={this.state.aChats}
+        handleClickCreator={handleClickCreator}
+        activeChat={activeChat}
+      />
+    );
   }
 }
 

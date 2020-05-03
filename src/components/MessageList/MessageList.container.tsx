@@ -16,6 +16,9 @@ class MessageListContainer extends React.Component<OwnProps, StateProps> {
     };
   }
 
+  // Выше сообщения не нужно шарить, поэтому запрашиваем здесь
+  // Это lazy loading сообщений
+  // Чат конечный, в данном случае 1000 сообщений, в будущем - ответ от сервера
   loadNextPage = () => {
     this.setState({ isNextPageLoading: true }, () => {
       setTimeout(() => {

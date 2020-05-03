@@ -3,7 +3,7 @@ import { Comment } from 'components/UI/Comment';
 
 import { IProps } from './types';
 
-import styles from './Item.module.scss';
+import styles from './ChatItem.module.scss';
 
 const dateCompare = (date1: Date, date2: Date = new Date()): boolean => {
   return (
@@ -13,7 +13,7 @@ const dateCompare = (date1: Date, date2: Date = new Date()): boolean => {
   );
 };
 
-export const Item: FunctionComponent<IProps> = (props) => {
+export const ChatItem: FunctionComponent<IProps> = (props) => {
   const {
     chatType,
     ava,
@@ -24,7 +24,7 @@ export const Item: FunctionComponent<IProps> = (props) => {
     chatId,
     isPinned,
     className,
-    ...restProps
+    ...divProps
   } = props;
   const contentDOM = (
     <p className={styles.content}>
@@ -42,7 +42,7 @@ export const Item: FunctionComponent<IProps> = (props) => {
       : timestamp.toLocaleDateString()
     : null;
   return (
-    <div className={`${styles.item} ${className}`} {...restProps}>
+    <div className={`${styles.item} ${className}`} {...divProps}>
       <Comment
         avatar={ava}
         label={label}

@@ -1,13 +1,11 @@
 import React from 'react';
-import './App.css';
-import ScreensRoot from './screens/Root';
 
-function App() {
+import { Chat } from 'components/Chat';
+
+export const App = () => {
   return (
     <div className="App">
-      <ScreensRoot />
+      <Chat />
     </div>
   );
-}
-
-export default App;
+};
