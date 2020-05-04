@@ -1,5 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC, HTMLProps } from 'react';
 
-export const List: FunctionComponent = (props) => {
-  return <div>{props.children}</div>;
+interface IList extends HTMLProps<HTMLDivElement> {}
+
+export const List: FC<IList> = (props) => {
+  const { children, ...divProps } = props;
+  return <div {...divProps}>{children}</div>;
 };

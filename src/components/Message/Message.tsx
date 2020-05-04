@@ -1,11 +1,16 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import { Comment } from 'components/UI/Comment';
-
-import { IProps } from './types';
 
 import styles from './Message.module.scss';
 
-export const Message: FunctionComponent<IProps> = (props) => {
+export interface IMessageProps {
+  ava: string;
+  username: string;
+  message: string;
+  timestamp: Date | undefined;
+}
+
+export const Message: FC<IMessageProps> = (props) => {
   const { ava, username, message, timestamp } = props;
   const contentDOM = <p className={styles.content}>{message}</p>;
   const timestampFormated = timestamp
