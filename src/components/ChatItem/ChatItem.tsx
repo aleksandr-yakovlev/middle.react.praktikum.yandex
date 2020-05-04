@@ -1,7 +1,5 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import { Comment } from 'components/UI/Comment';
-
-import { IProps } from './types';
 
 import styles from './ChatItem.module.scss';
 
@@ -13,7 +11,23 @@ const dateCompare = (date1: Date, date2: Date = new Date()): boolean => {
   );
 };
 
-export const ChatItem: FunctionComponent<IProps> = (props) => {
+enum ETypeItem {
+  personal = 0,
+  group,
+  channel,
+}
+
+export interface IChatItemProps extends React.HTMLProps<HTMLDivElement> {
+  chatId: string;
+  chatType: ETypeItem;
+  ava: string;
+  label: string;
+  username?: string;
+  shortmessage: string;
+  timestamp?: Date;
+}
+
+export const ChatItem: FC<IChatItemProps> = (props) => {
   const {
     chatType,
     ava,
@@ -22,7 +36,6 @@ export const ChatItem: FunctionComponent<IProps> = (props) => {
     shortmessage,
     timestamp,
     chatId,
-    isPinned,
     className,
     ...divProps
   } = props;

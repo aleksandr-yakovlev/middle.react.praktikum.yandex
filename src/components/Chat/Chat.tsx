@@ -5,8 +5,12 @@ import { Sidebar } from 'components/Sidebar';
 
 import styles from './Chat.module.scss';
 
-export class Chat extends React.Component {
-  readonly state = {
+interface IChatState {
+  chatId: string | undefined;
+}
+
+export class Chat extends React.Component<IChatState> {
+  readonly state: IChatState = {
     chatId: undefined,
   };
   handleClickCreator = (chatId: string) => {
@@ -22,6 +26,7 @@ export class Chat extends React.Component {
       <div className={styles.chat}>
         <Sidebar
           activeChat={chatId}
+          chatsData={this.state.chatsData}
           handleClickCreator={this.handleClickCreator}
         />
         <MessageList chatId={chatId} />

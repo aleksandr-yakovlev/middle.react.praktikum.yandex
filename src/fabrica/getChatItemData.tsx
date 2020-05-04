@@ -1,7 +1,7 @@
 import { ETypeItem, StateProps } from './types';
 import faker from 'faker/locale/ru';
 
-let getTestData = (id: string): Promise<StateProps> => {
+let getChatsData = (chatCount: number):{
   return new Promise((resolve, reject) => {
     let ava: string;
     let label: string;
@@ -43,4 +43,4 @@ let getTestData = (id: string): Promise<StateProps> => {
   });
 };
 
-export { getTestData };
+export { getChatData };

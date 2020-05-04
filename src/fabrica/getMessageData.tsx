@@ -1,7 +1,7 @@
-import { StateProps } from '../Message/types';
+import { StateProps } from '../components/Message/types';
 import faker from 'faker/locale/ru';
 
-let getTestData = (): StateProps => {
+let getMessageData = (): StateProps => {
   let ava: string;
 
   const username: string = faker.name.firstName();
@@ -19,4 +19,4 @@ let getTestData = (): StateProps => {
   return itemTestData;
 };
 
-export default getTestData;
+export { getMessageData };
