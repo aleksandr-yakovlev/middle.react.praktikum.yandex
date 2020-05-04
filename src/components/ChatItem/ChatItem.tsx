@@ -24,7 +24,7 @@ export interface IChatItemProps extends React.HTMLProps<HTMLDivElement> {
   label: string;
   username?: string;
   shortmessage: string;
-  timestamp?: Date;
+  timestamp: Date;
 }
 
 export const ChatItem: FC<IChatItemProps> = (props) => {

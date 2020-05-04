@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import styles from './Comment.module.scss';
 
@@ -9,7 +9,7 @@ export interface ICommentProps {
   timestamp?: React.ReactNode;
 }
 
-export const Comment: React.FC<ICommentProps> = ({
+export const Comment: FC<ICommentProps> = ({
   avatar,
   label,
   content,
@@ -35,12 +35,10 @@ export const Comment: React.FC<ICommentProps> = ({
     </div>
   );
 
-  const commentDOM = (
+  return (
     <div className={styles.comment}>
       {avatarDOM}
       {contentDOM}
     </div>
   );
-
-  return commentDOM;
 };

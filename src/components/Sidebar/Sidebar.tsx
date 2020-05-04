@@ -16,7 +16,7 @@ export interface ISidebarProps {
 }
 
 export const Sidebar: FC<ISidebarProps> = (props) => {
-  const { chatsData, handleClickCreator, activeChat } = { ...props };
+  const { chatsData, handleClickCreator, activeChat } = props;
   return (
     <div className={styles.sidebar}>
       <ChatList>
@@ -29,7 +29,7 @@ export const Sidebar: FC<ISidebarProps> = (props) => {
             username,
             shortmessage,
             timestamp,
-          } = { ...chatProps };
+          } = chatProps;
           return (
             <ChatItem
               key={chatId}
