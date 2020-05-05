@@ -1,3 +1,5 @@
+import faker from 'faker';
+
 let chatsData = [
   {
     chatId: '0',
@@ -208,4 +210,24 @@ let chatsData = [
   },
 ];
 
-export { chatsData };
+interface IMessage {
+  ava: string;
+  username: string;
+  message: string;
+  timestamp: Date;
+}
+
+let getMessages = (count: number) => {
+  let aChats: IMessage[] = [];
+  for (let index = 0; index < count; index++) {
+    aChats.push({
+      ava: `https://picsum.photos/id/${faker.random.number(1000)}/48`,
+      username: faker.name.firstName(),
+      message: faker.hacker.phrase(),
+      timestamp: faker.date.past(),
+    });
+  }
+  return aChats;
+};
+
+export { chatsData, getMessages };

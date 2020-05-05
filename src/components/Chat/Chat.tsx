@@ -1,40 +1,49 @@
 import React from 'react';
-import faker from 'faker/locale/ru';
+import { RouteComponentProps } from 'react-router-dom';
 
 import { MessageList, chatMessagesType } from 'components/MessageList';
 import { Sidebar, chatsDataType } from 'components/Sidebar';
 
-import { chatsData } from './chats.testdata';
+import { chatsData, getMessages } from './chats.testdata';
 
 import styles from './Chat.module.scss';
+
+function withRouter<T>(Component: React.ComponentType<T>) {
+  return (props: T & RouteComponentProps<{ id: string }>) => {
+    return (
+      <Component
+        chatId={props.match.params.id}
+        chatMessages={getMessages(50)}
+        {...props}
+      />
+    );
+  };
+}
 
 interface IChatState {
   chatId: string | undefined;
   chatMessages: chatMessagesType[];
 }
 
-export class Chat extends React.Component {
+interface IChatProps {
+  chatId: string;
+  chatMessages: chatMessagesType[];
+}
+
+class Chat extends React.Component<IChatProps> {
   readonly state: IChatState = {
-    chatId: undefined,
-    chatMessages: [],
+    chatId: this.props.chatId,
+    chatMessages: this.props.chatId ? getMessages(50) : [],
   };
+
   handleClickCreator = (chatId: string) => {
     return () => {
-      const newChatMessages = [
-        ...this.state.chatMessages,
-        {
-          ava: `https://picsum.photos/id/${faker.random.number(1000)}/48`,
-          username: faker.name.firstName(),
-          message: faker.hacker.phrase(),
-          timestamp: faker.date.past(),
-        },
-      ];
-      this.setState({ chatId: chatId, chatMessages: newChatMessages });
+      this.setState({ chatId: chatId, chatMessages: getMessages(50) });
     };
   };
 
   render() {
-    const { chatId } = this.state;
+    const { chatId, chatMessages } = this.state;
     return (
       <div className={styles.chat}>
         <Sidebar
@@ -46,10 +55,14 @@ export class Chat extends React.Component {
           handleClickCreator={this.handleClickCreator}
         />
         <MessageList
-          chatMessages={this.state.chatMessages}
+          chatMessages={chatMessages}
           isActive={chatId ? true : false}
         />
       </div>
     );
   }
 }
+
+const ChatWrapped = withRouter(Chat);
+
+export { ChatWrapped as Chat };
