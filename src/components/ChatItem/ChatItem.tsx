@@ -1,15 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
+import { dateCompare } from 'modules/dateCompare';
+
 import { Comment } from 'components/UI/Comment';
 
 import styles from './ChatItem.module.scss';
-
-const dateCompare = (date1: Date, date2: Date = new Date()): boolean => {
-  return (
-    date1.getFullYear() === date2.getFullYear() &&
-    date1.getMonth() === date2.getMonth() &&
-    date1.getDate() === date2.getDate()
-  );
-};
 
 enum ETypeItem {
   personal = 0,
@@ -17,7 +11,7 @@ enum ETypeItem {
   channel,
 }
 
-export interface IChatItemProps extends React.HTMLProps<HTMLDivElement> {
+export interface IChatItemProps {
   chatId: string;
   chatType: ETypeItem;
   ava: string;
@@ -25,6 +19,8 @@ export interface IChatItemProps extends React.HTMLProps<HTMLDivElement> {
   username?: string;
   shortmessage: string;
   timestamp: Date;
+  className: string;
+  onClick: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
 export const ChatItem: FC<IChatItemProps> = (props) => {
@@ -35,9 +31,8 @@ export const ChatItem: FC<IChatItemProps> = (props) => {
     username,
     shortmessage,
     timestamp,
-    chatId,
     className,
-    ...divProps
+    onClick,
   } = props;
   const contentDOM = (
     <p className={styles.content}>
@@ -55,7 +50,7 @@ export const ChatItem: FC<IChatItemProps> = (props) => {
       : timestamp.toLocaleDateString()
     : null;
   return (
-    <div className={`${styles.item} ${className}`} {...divProps}>
+    <div className={`${styles.item} ${className}`} onClick={onClick}>
       <Comment
         avatar={ava}
         label={label}

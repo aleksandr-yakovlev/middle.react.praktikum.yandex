@@ -1,6 +1,11 @@
 .content {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   font-size: 14px;
+}
+.avatar {
+  padding-right: 7px;
+  min-width: 36px;
+  width: 32px;
+  .imgAvatar {
+    width: 100%;
+  }
 }

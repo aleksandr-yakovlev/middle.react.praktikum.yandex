@@ -2,6 +2,10 @@
   height: 100%;
   width: 80%;
   overflow-y: scroll;
+  .timestampSeparator {
+    text-align: center;
+    margin: 5px;
+  }
 }
 
 .blank {

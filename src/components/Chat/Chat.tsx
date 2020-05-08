@@ -1,10 +1,10 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { MessageList, chatMessagesType } from 'components/MessageList';
+import { MessageList, IMessagesData } from 'components/MessageList';
 import { Sidebar, chatsDataType } from 'components/Sidebar';
 
-import { chatsData, getMessages } from './chats.testdata';
+import { chatsData, getChatData } from './chats.testdata';
 
 import styles from './Chat.module.scss';
 
@@ -12,8 +12,8 @@ function withRouter<T>(Component: React.ComponentType<T>) {
   return (props: T & RouteComponentProps<{ id: string }>) => {
     return (
       <Component
-        chatId={props.match.params.id}
-        chatMessages={getMessages(50)}
+        currentChat={props.match.params.id}
+        chatMessages={getChatData(props.match.params.id)}
         {...props}
       />
     );
@@ -21,43 +21,48 @@ function withRouter<T>(Component: React.ComponentType<T>) {
 }
 
 interface IChatState {
-  chatId: string | undefined;
-  chatMessages: chatMessagesType[];
+  currentChat: string | undefined;
+  chatMessages: IMessagesData | undefined;
 }
 
 interface IChatProps {
-  chatId: string;
-  chatMessages: chatMessagesType[];
+  currentChat: string;
 }
 
 class Chat extends React.Component<IChatProps> {
   readonly state: IChatState = {
-    chatId: this.props.chatId,
-    chatMessages: this.props.chatId ? getMessages(50) : [],
+    currentChat: this.props.currentChat,
+    chatMessages: this.props.currentChat
+      ? getChatData(this.props.currentChat)
+      : undefined,
   };
 
   handleClickCreator = (chatId: string) => {
     return () => {
-      this.setState({ chatId: chatId, chatMessages: getMessages(50) });
+      this.setState(() => ({
+        currentChat: chatId,
+        chatMessages: getChatData(chatId),
+      }));
     };
   };
 
+  chatsDataSort = (ChatsData: chatsDataType[]) => {
+    return ChatsData.sort(
+      (chat1: chatsDataType, chat2: chatsDataType): number =>
+        chat2.timestamp.getTime() - chat1.timestamp.getTime(),
+    );
+  };
+
   render() {
-    const { chatId, chatMessages } = this.state;
+    const { currentChat, chatMessages } = this.state;
     return (
       <div className={styles.chat}>
         <Sidebar
-          activeChat={chatId}
-          chatsData={chatsData.sort(
-            (chat1: chatsDataType, chat2: chatsDataType): number =>
-              chat2.timestamp.getTime() - chat1.timestamp.getTime(),
-          )}
+          activeChat={currentChat}
+          chatsData={this.chatsDataSort(chatsData)}
           handleClickCreator={this.handleClickCreator}
         />
-        <MessageList
-          chatMessages={chatMessages}
-          isActive={chatId ? true : false}
-        />
+        <MessageList data={chatMessages} />
       </div>
     );
   }
