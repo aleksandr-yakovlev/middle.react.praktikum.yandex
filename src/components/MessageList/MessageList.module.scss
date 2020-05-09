@@ -1,15 +1,8 @@
 .messagelist {
-  height: 100%;
-  width: 80%;
+  width: 100%;
   overflow-y: scroll;
   .timestampSeparator {
     text-align: center;
     margin: 5px;
   }
-}
-
-.blank {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

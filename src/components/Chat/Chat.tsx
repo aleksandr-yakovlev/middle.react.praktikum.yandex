@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { KeyboardEvent, ChangeEvent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 import { MessageList, IMessagesData } from 'components/MessageList';
+import { MessageForm } from 'components/MessageForm';
 import { Sidebar, chatsDataType } from 'components/Sidebar';
 
 import { chatsData, getChatData } from './chats.testdata';
@@ -22,7 +24,8 @@ function withRouter<T>(Component: React.ComponentType<T>) {
 
 interface IChatState {
   currentChat: string | undefined;
-  chatMessages: IMessagesData | undefined;
+  chatMessages: IMessagesData;
+  message: string;
 }
 
 interface IChatProps {
@@ -34,7 +37,8 @@ class Chat extends React.Component<IChatProps> {
     currentChat: this.props.currentChat,
     chatMessages: this.props.currentChat
       ? getChatData(this.props.currentChat)
-      : undefined,
+      : { users: {}, messages: [] },
+    message: '',
   };
 
   handleClickCreator = (chatId: string) => {
@@ -46,6 +50,51 @@ class Chat extends React.Component<IChatProps> {
     };
   };
 
+  autosizer = (ref: React.RefObject<HTMLTextAreaElement>) => {
+    const curRef = ref.current;
+    if (curRef?.style.height !== curRef?.scrollHeight) {
+      curRef?.style.setProperty('height', 'auto');
+      curRef?.style.setProperty('height', `${curRef?.scrollHeight}px`);
+    }
+  };
+
+  handleMessageKeyPress = (ref: React.RefObject<HTMLTextAreaElement>) => (
+    e: KeyboardEvent<HTMLTextAreaElement>,
+  ) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      const message: string = e.currentTarget.value;
+      e.preventDefault();
+      this.setState(
+        (prevState: IChatState) => ({
+          message: '',
+          chatMessages: {
+            ...prevState.chatMessages,
+            messages: [
+              ...prevState.chatMessages.messages,
+              {
+                messageId: uuidv4(),
+                authorId: Object.keys(prevState.chatMessages.users)[0],
+                text: message,
+                timestamp: new Date(),
+              },
+            ],
+          },
+        }),
+        () => this.autosizer(ref),
+      );
+    }
+  };
+
+  onMessageChange = (ref: React.RefObject<HTMLTextAreaElement>) => (
+    e: ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    let message: string = e.currentTarget.value;
+    this.setState(() => ({
+      message: message,
+    }));
+    this.autosizer(ref);
+  };
+
   chatsDataSort = (ChatsData: chatsDataType[]) => {
     return ChatsData.sort(
       (chat1: chatsDataType, chat2: chatsDataType): number =>
@@ -54,7 +103,7 @@ class Chat extends React.Component<IChatProps> {
   };
 
   render() {
-    const { currentChat, chatMessages } = this.state;
+    const { currentChat, chatMessages, message } = this.state;
     return (
       <div className={styles.chat}>
         <Sidebar
@@ -62,7 +111,22 @@ class Chat extends React.Component<IChatProps> {
           chatsData={this.chatsDataSort(chatsData)}
           handleClickCreator={this.handleClickCreator}
         />
-        <MessageList data={chatMessages} />
+        <div className={styles.main}>
+          {chatMessages ? (
+            <div className={styles.messages}>
+              <MessageList data={chatMessages} />
+              <MessageForm
+                handleKeyPress={this.handleMessageKeyPress}
+                onChange={this.onMessageChange}
+                value={message}
+              />
+            </div>
+          ) : (
+            <div className={styles.blank}>
+              <p className={styles.select}>Выберите чат...</p>
+            </div>
+          )}
+        </div>
       </div>
     );
   }

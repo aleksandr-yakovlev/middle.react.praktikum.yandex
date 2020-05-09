@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import CSS from 'csstype';
 import { dateCompare } from 'modules/dateCompare';
 
 import { List } from '../UI/List';
@@ -22,63 +23,53 @@ export interface IMessagesData {
 }
 
 export interface IMessageListProps {
-  data: IMessagesData | undefined;
+  data: IMessagesData;
+  style?: CSS.Properties;
 }
 
 export const MessageList: FC<IMessageListProps> = (props) => {
-  const { data } = props;
+  const { data, style } = props;
   const defaultUser: IUser = {
     ava: 'https://s3.amazonaws.com/uifaces/faces/twitter/rahmeen/128.jpg',
     name: 'Удалено',
   };
-  const thisYear = new Date().getFullYear();
-  return data ? (
-    <List className={styles.messagelist}>
-      {data.messages.map(
-        ({ messageId, authorId, text, timestamp }, index, messages) => {
-          const isSameAutor = authorId === (messages[index - 1] || {}).authorId;
-          const isSameDay = dateCompare(
-            timestamp,
-            (messages[index - 1] || {}).timestamp,
-          );
-          const isThisYear = timestamp.getFullYear() === thisYear;
-          return (
-            <div key={messageId}>
-              {!isSameDay && (
-                <p className={styles.timestampSeparator}>
-                  {timestamp
-                    .toLocaleDateString([], {
-                      weekday: 'short',
-                      year: !isThisYear ? 'numeric' : undefined,
-                      month: 'long',
-                      day: 'numeric',
-                    })
-                    .replace(/\s*г\./, '')}
-                </p>
-              )}
-              <Message
-                id={messageId}
-                ava={
-                  !isSameAutor
-                    ? (data.users[authorId] || defaultUser).ava
-                    : undefined
-                }
-                username={
-                  !isSameAutor
-                    ? (data.users[authorId] || defaultUser).name
-                    : undefined
-                }
-                text={text}
-                timestamp={timestamp}
-              />
-            </div>
-          );
-        },
-      )}
+  const getFormatedData = (date: Date) => {
+    const thisYear = new Date().getFullYear();
+    return date
+      .toLocaleDateString([], {
+        weekday: 'short',
+        year: date.getFullYear() === thisYear ? 'numeric' : undefined,
+        month: 'long',
+        day: 'numeric',
+      })
+      .replace(/\s*г\./, '');
+  };
+  const getTimestampDOM = (timestamp: Date) => {
+    return (
+      <p className={styles.timestampSeparator}>{getFormatedData(timestamp)}</p>
+    );
+  };
+  return (
+    <List className={styles.messagelist} style={{ height: '100%', ...style }}>
+      {data.messages.map((props, index, messages) => {
+        const { messageId, authorId, text, timestamp } = props;
+        const message = messages[index - 1] || {};
+        const isSameAutor = authorId === message.authorId;
+        const isSameDay = dateCompare(timestamp, message.timestamp);
+        let user = data.users[authorId] || defaultUser;
+        return (
+          <div key={messageId}>
+            {!isSameDay && getTimestampDOM(timestamp)}
+            <Message
+              id={messageId}
+              ava={!isSameAutor || !isSameDay ? user.ava : undefined}
+              username={!isSameAutor || !isSameDay ? user.name : undefined}
+              text={text}
+              timestamp={timestamp}
+            />
+          </div>
+        );
+      })}
     </List>
-  ) : (
-    <div className={`${styles.messagelist} ${styles.blank}`}>
-      Выберите чат...
-    </div>
   );
 };
