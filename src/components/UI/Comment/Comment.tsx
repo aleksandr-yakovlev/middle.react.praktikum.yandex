@@ -7,6 +7,7 @@ export interface ICommentProps {
   label?: React.ReactNode;
   content: React.ReactNode;
   timestamp?: React.ReactNode;
+  isCenterTimestamp?: boolean;
 }
 
 export const Comment: FC<ICommentProps> = ({
@@ -14,6 +15,7 @@ export const Comment: FC<ICommentProps> = ({
   label,
   content,
   timestamp,
+  isCenterTimestamp,
 }) => {
   const avatarDOM = (
     <div className={styles.left}>
@@ -29,9 +31,18 @@ export const Comment: FC<ICommentProps> = ({
     <div className={styles.right}>
       <p className={styles.top}>
         {label && <span className={styles.label}>{label}</span>}
-        {timestamp && <span className={styles.timestamp}>{timestamp}</span>}
+        {timestamp && !isCenterTimestamp && (
+          <span className={styles.timestamp}>{timestamp}</span>
+        )}
       </p>
-      {content}
+      {isCenterTimestamp && timestamp ? (
+        <div className={styles.bottom}>
+          {content}
+          <span className={styles.timestamp}>{timestamp}</span>
+        </div>
+      ) : (
+        content
+      )}
     </div>
   );
 

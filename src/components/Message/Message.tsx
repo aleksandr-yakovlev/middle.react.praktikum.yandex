@@ -1,18 +1,25 @@
 import React, { FC } from 'react';
+
 import { Comment } from 'components/UI/Comment';
 
 import styles from './Message.module.scss';
 
 export interface IMessageProps {
-  ava: string;
-  username: string;
-  message: string;
-  timestamp: Date | undefined;
+  id: string;
+  ava?: string;
+  username?: string;
+  text: string;
+  timestamp?: Date;
 }
 
 export const Message: FC<IMessageProps> = (props) => {
-  const { ava, username, message, timestamp } = props;
-  const contentDOM = <p className={styles.content}>{message}</p>;
+  const { ava, username, text, timestamp } = props;
+  const avaDOM = (
+    <div className={styles.avatar}>
+      <img className={styles.imgAvatar} src={ava} alt="" />
+    </div>
+  );
+  const contentDOM = <p className={styles.content}>{text}</p>;
   const timestampFormated = timestamp
     ? timestamp.toLocaleTimeString([], {
         hour: '2-digit',
@@ -21,10 +28,11 @@ export const Message: FC<IMessageProps> = (props) => {
     : null;
   return (
     <Comment
-      avatar={ava}
+      avatar={avaDOM}
       label={username}
       timestamp={timestampFormated}
       content={contentDOM}
+      isCenterTimestamp={true}
     />
   );
 };

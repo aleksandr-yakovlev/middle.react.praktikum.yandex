@@ -5,23 +5,34 @@ import { ChatItem, IChatItemProps } from '../ChatItem';
 
 import styles from './Sidebar.module.scss';
 
-export type chatsDataType = IChatItemProps;
+export type chatsDataType = Pick<
+  IChatItemProps,
+  | 'chatId'
+  | 'chatType'
+  | 'ava'
+  | 'label'
+  | 'username'
+  | 'shortmessage'
+  | 'timestamp'
+>;
 
 export interface ISidebarProps {
+  userId: string;
   handleClickCreator: (
     chatId: string,
   ) => (e: MouseEvent<HTMLDivElement>) => void;
+  Logout: (e: MouseEvent<HTMLElement>) => void;
   chatsData: chatsDataType[];
   activeChat: string | undefined;
 }
 
 export const Sidebar: FC<ISidebarProps> = (props) => {
-  const { chatsData, handleClickCreator, activeChat } = props;
+  const { userId, chatsData, handleClickCreator, Logout, activeChat } = props;
   return (
     <div className={styles.sidebar}>
       <ChatList>
-        {chatsData.map((chatProps) => {
-          const {
+        {chatsData.map(
+          ({
             chatId,
             chatType,
             ava,
@@ -29,23 +40,30 @@ export const Sidebar: FC<ISidebarProps> = (props) => {
             username,
             shortmessage,
             timestamp,
-          } = chatProps;
-          return (
-            <ChatItem
-              key={chatId}
-              className={activeChat === chatId ? styles.active : ''}
-              onClick={handleClickCreator(chatId)}
-              chatId={chatId}
-              chatType={chatType}
-              ava={ava}
-              label={label}
-              username={username}
-              shortmessage={shortmessage}
-              timestamp={timestamp}
-            />
-          );
-        })}
+          }) => {
+            return (
+              <ChatItem
+                key={chatId}
+                className={activeChat === chatId ? styles.active : ''}
+                onClick={handleClickCreator(chatId)}
+                chatId={chatId}
+                chatType={chatType}
+                ava={ava}
+                label={label}
+                username={username}
+                shortmessage={shortmessage}
+                timestamp={timestamp}
+              />
+            );
+          },
+        )}
       </ChatList>
+      <div className={styles.user}>
+        <p>Пользователь: {userId}</p>
+        <p onClick={Logout} className={styles.exit}>
+          Выйти
+        </p>
+      </div>
     </div>
   );
 };
