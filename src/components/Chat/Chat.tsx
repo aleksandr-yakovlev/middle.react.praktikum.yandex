@@ -1,5 +1,4 @@
-import React, { KeyboardEvent, ChangeEvent } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import React, { KeyboardEvent, ChangeEvent, MouseEvent } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { MessageList, IMessagesData } from 'components/MessageList';
@@ -10,36 +9,33 @@ import { chatsData, getChatData } from './chats.testdata';
 
 import styles from './Chat.module.scss';
 
-function withRouter<T>(Component: React.ComponentType<T>) {
-  return (props: T & RouteComponentProps<{ id: string }>) => {
-    return (
-      <Component
-        currentChat={props.match.params.id}
-        chatMessages={getChatData(props.match.params.id)}
-        {...props}
-      />
-    );
-  };
-}
-
 interface IChatState {
-  currentChat: string | undefined;
+  currentChat?: string;
   chatMessages: IMessagesData;
   message: string;
 }
 
 interface IChatProps {
-  currentChat: string;
+  userId: string;
+  currentChat?: string;
+  Logout: (e: MouseEvent<HTMLElement>) => void;
 }
 
 class Chat extends React.Component<IChatProps> {
   readonly state: IChatState = {
     currentChat: this.props.currentChat,
-    chatMessages: this.props.currentChat
-      ? getChatData(this.props.currentChat)
-      : { users: {}, messages: [] },
+    chatMessages: { users: {}, messages: [] },
     message: '',
   };
+
+  componentDidMount() {
+    if (this.props.currentChat) {
+      let currentChat = this.props.currentChat;
+      this.setState(() => ({
+        chatMessages: getChatData(currentChat),
+      }));
+    }
+  }
 
   handleClickCreator = (chatId: string) => {
     return () => {
@@ -62,8 +58,8 @@ class Chat extends React.Component<IChatProps> {
     e: KeyboardEvent<HTMLTextAreaElement>,
   ) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      const message: string = e.currentTarget.value;
       e.preventDefault();
+      const message: string = e.currentTarget.value;
       this.setState(
         (prevState: IChatState) => ({
           message: '',
@@ -104,12 +100,15 @@ class Chat extends React.Component<IChatProps> {
 
   render() {
     const { currentChat, chatMessages, message } = this.state;
+    const { userId, Logout } = this.props;
     return (
       <div className={styles.chat}>
         <Sidebar
+          userId={userId}
           activeChat={currentChat}
           chatsData={this.chatsDataSort(chatsData)}
           handleClickCreator={this.handleClickCreator}
+          Logout={Logout}
         />
         <div className={styles.main}>
           {chatMessages ? (
@@ -132,6 +131,4 @@ class Chat extends React.Component<IChatProps> {
   }
 }
 
-const ChatWrapped = withRouter(Chat);
-
-export { ChatWrapped as Chat };
+export { Chat };
