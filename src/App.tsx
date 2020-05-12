@@ -79,7 +79,7 @@ class App extends React.Component<RouteComponentProps, IAppState> {
                   <Route
                     path="/chat/:id"
                     component={withRouterProps((props) => (
-                      <Chat userId={userId} {...props} />
+                      <Chat Logout={this.Logout} userId={userId} {...props} />
                     ))}
                   />
                 </Switch>

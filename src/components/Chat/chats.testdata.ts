@@ -65,7 +65,7 @@ const messagesData: Record<string, IMessage> = {
       {
         messageId: '4f82c4ce-57a6-4619-84b8-add5be27d207',
         authorId: 'jack-johnson@ya.ru',
-        text: "Hey, I'm here!",
+        text: 'Hey, We here!',
         timestamp: new Date('2020-01-04T13:22:03.338Z'),
         // new Date('2020-05-04T16:57:31')
       },
@@ -73,13 +73,13 @@ const messagesData: Record<string, IMessage> = {
         messageId: '4fd57ff3-86c9-4c55-9303-e2d235efdaf7',
         authorId: 'shrek@ya.ru',
         text:
-          "I'm at home I'm at home  I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home",
+          'We at home We at home  We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home',
         timestamp: new Date('2020-02-02T09:04:33.338Z'),
       },
       {
         messageId: '82529ed0-9684-4885-8215-7c4b209509d2',
         authorId: 'shrek@ya.ru',
-        text: "I'm at home",
+        text: 'I am at home',
         timestamp: new Date('2020-02-02T09:30:33.338Z'),
       },
       {
@@ -110,22 +110,21 @@ const messagesData: Record<string, IMessage> = {
     messages: [
       {
         messageId: '4f82c4ce-57a6-4619-84b8-add5be27d207',
-        authorId: 'jack-johnson@ya.ru',
-        text: "Hey, I'm here!",
+        authorId: 'shrek@ya.ru',
+        text: 'Hey, We here!',
         timestamp: new Date('2020-01-04T13:22:03.338Z'),
-        // new Date('2020-05-04T16:57:31')
       },
       {
         messageId: '4fd57ff3-86c9-4c55-9303-e2d235efdaf7',
         authorId: 'shrek@ya.ru',
         text:
-          "I'm at home I'm at home  I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home",
+          'I am at home I am at home  I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home I am at home',
         timestamp: new Date('2020-02-02T09:04:33.338Z'),
       },
       {
         messageId: '82529ed0-9684-4885-8215-7c4b209509d2',
-        authorId: 'shrek@ya.ru',
-        text: "I'm at home",
+        authorId: 'jack-johnson@ya.ru',
+        text: 'We at home',
         timestamp: new Date('2020-02-02T09:30:33.338Z'),
       },
       {
@@ -157,7 +156,7 @@ const messagesData: Record<string, IMessage> = {
       {
         messageId: '4f82c4ce-57a6-4619-84b8-add5be27d207',
         authorId: 'jack-johnson@ya.ru',
-        text: "Hey, I'm here!",
+        text: 'Hey, We here!',
         timestamp: new Date('2020-01-04T13:22:03.338Z'),
         // new Date('2020-05-04T16:57:31')
       },
@@ -165,13 +164,13 @@ const messagesData: Record<string, IMessage> = {
         messageId: '4fd57ff3-86c9-4c55-9303-e2d235efdaf7',
         authorId: 'shrek@ya.ru',
         text:
-          "I'm at home I'm at home  I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home",
+          'We at home We at home  We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home',
         timestamp: new Date('2020-02-02T09:04:33.338Z'),
       },
       {
         messageId: '82529ed0-9684-4885-8215-7c4b209509d2',
         authorId: 'shrek@ya.ru',
-        text: "I'm at home",
+        text: 'We at home',
         timestamp: new Date('2020-02-02T09:30:33.338Z'),
       },
       {
@@ -203,7 +202,7 @@ const messagesData: Record<string, IMessage> = {
       {
         messageId: '4f82c4ce-57a6-4619-84b8-add5be27d207',
         authorId: 'jack-johnson@ya.ru',
-        text: "Hey, I'm here!",
+        text: 'Hey, We here!',
         timestamp: new Date('2020-01-04T13:22:03.338Z'),
         // new Date('2020-05-04T16:57:31')
       },
@@ -211,13 +210,13 @@ const messagesData: Record<string, IMessage> = {
         messageId: '4fd57ff3-86c9-4c55-9303-e2d235efdaf7',
         authorId: 'shrek@ya.ru',
         text:
-          "I'm at home I'm at home  I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home I'm at home",
+          'We at home We at home  We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home We at home',
         timestamp: new Date('2020-02-02T09:04:33.338Z'),
       },
       {
         messageId: '82529ed0-9684-4885-8215-7c4b209509d2',
         authorId: 'shrek@ya.ru',
-        text: "I'm at home",
+        text: 'We at home',
         timestamp: new Date('2020-02-02T09:30:33.338Z'),
       },
       {

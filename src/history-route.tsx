@@ -1,7 +1,5 @@
-import { createBrowserHistory } from 'history';
+import { createHashHistory } from 'history';
 
-const history = createBrowserHistory({
-  basename: '/middle.react.praktikum.yandex',
-});
+const history = createHashHistory();
 
 export { history };
