@@ -12,8 +12,12 @@ export interface IMessageProps {
   timestamp?: Date;
 }
 
-export const Message: FC<IMessageProps> = (props) => {
-  const { ava, username, text, timestamp } = props;
+export const Message: FC<IMessageProps> = ({
+  ava,
+  username,
+  text,
+  timestamp,
+}) => {
   const avaDOM = (
     <div className={styles.avatar}>
       <img className={styles.imgAvatar} src={ava} alt="" />

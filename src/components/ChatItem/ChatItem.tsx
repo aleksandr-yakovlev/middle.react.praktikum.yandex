@@ -1,5 +1,5 @@
 import React, { FC, MouseEvent } from 'react';
-import { dateCompare } from 'modules/dateCompare';
+import { dateCompare } from 'utils/dateCompare';
 
 import { Comment } from 'components/UI/Comment';
 
@@ -23,17 +23,16 @@ export interface IChatItemProps {
   onClick: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
-export const ChatItem: FC<IChatItemProps> = (props) => {
-  const {
-    chatType,
-    ava,
-    label,
-    username,
-    shortmessage,
-    timestamp,
-    className,
-    onClick,
-  } = props;
+export const ChatItem: FC<IChatItemProps> = ({
+  chatType,
+  ava,
+  label,
+  username,
+  shortmessage,
+  timestamp,
+  className,
+  onClick,
+}) => {
   const contentDOM = (
     <p className={styles.content}>
       {/* не отображаем имя для личных чатов */}

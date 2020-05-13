@@ -17,52 +17,84 @@ export interface IAppState {
   userId: string | null;
 }
 
+type userType = Record<string, { fname: string; lname: string; pwd: string }>;
+
 function withRouterProps<T>(Component: React.ComponentType<T>) {
   return (props: T & RouteComponentProps<{ id: string }>) => {
     return <Component currentChat={props.match.params.id} {...props} />;
   };
 }
 
-class App extends React.Component<RouteComponentProps, IAppState> {
-  constructor(props: RouteComponentProps) {
-    super(props);
-    this.state = {
-      userId: 'test',
-    };
+class App extends React.Component<RouteComponentProps> {
+  readonly state: IAppState = {
+    userId: null,
+  };
 
-    this.onAuth = this.onAuth.bind(this);
-    this.Logout = this.Logout.bind(this);
-  }
+  private users: userType = {
+    test: {
+      fname: 'Test',
+      lname: 'Testov',
+      pwd: 'test',
+    },
+  };
 
-  onAuth(userId: string) {
+  onAuth = (userId: string, previousPage: string = '/') => {
     this.setState(
       () => ({
         userId: userId,
       }),
-      () => history.push('/'),
+      () => history.push(previousPage),
     );
-  }
+  };
 
-  Logout() {
+  checkAuth = (
+    uname: string,
+    pwd: string,
+  ): { uValid: boolean; pValid: boolean } => {
+    const uValid: boolean = !!this.users[uname];
+    const pValid: boolean = uValid && this.users[uname].pwd === pwd;
+    return {
+      uValid: uValid,
+      pValid: pValid,
+    };
+  };
+
+  createUser = (uname: string, fname: string, lname: string, pwd: string) => {
+    this.users[uname] = {
+      fname: fname,
+      lname: lname,
+      pwd: pwd,
+    };
+    this.onAuth(uname);
+  };
+
+  Logout = () => {
     this.setState(() => ({
       userId: null,
     }));
-  }
+  };
 
   render() {
     const { userId } = this.state;
+    const { ...routeProps } = this.props;
     return (
       <div className="App">
         <Switch>
           <Route
             exact
             path="/login"
-            component={() => <LoginForm onAuth={this.onAuth} />}
+            component={() => (
+              <LoginForm
+                onAuth={this.onAuth}
+                checkAuth={this.checkAuth}
+                {...routeProps}
+              />
+            )}
           />
           <Route
             exact
             path="/register"
-            component={() => <RegForm onAuth={this.onAuth} />}
+            component={() => <RegForm createUser={this.createUser} />}
           />
           <Route
             path="/"
@@ -84,7 +116,12 @@ class App extends React.Component<RouteComponentProps, IAppState> {
                   />
                 </Switch>
               ) : (
-                <Redirect to="/login" />
+                <Redirect
+                  to={{
+                    pathname: '/login',
+                    state: { previousPage: this.props.location.pathname },
+                  }}
+                />
               )
             }
           />
