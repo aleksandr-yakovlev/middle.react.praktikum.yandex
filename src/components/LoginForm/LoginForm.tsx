@@ -1,5 +1,5 @@
-import React, { FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import React, { FormEvent, ChangeEvent } from 'react';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
 import { Form } from 'components/UI/Form';
 import { Input } from 'components/UI/Input';
@@ -7,67 +7,78 @@ import { Input } from 'components/UI/Input';
 import styles from './LoginForm.module.scss';
 
 export interface ILoginFormProps {
-  onAuth: (chatId: string) => void;
+  onAuth: (chatId: string, previousPage: string) => void;
+  checkAuth: (
+    uname: string,
+    pwd: string,
+  ) => { uValid: boolean; pValid: boolean };
 }
 
 export interface ILoginFormState {
-  errors: Record<string, string>;
+  uname: string;
+  pwd: string;
+  errors: Record<string, string | boolean>;
 }
 
 export class LoginForm extends React.Component<
-  ILoginFormProps,
-  ILoginFormState
+  ILoginFormProps & RouteComponentProps
 > {
-  constructor(props: ILoginFormProps) {
-    super(props);
-    this.state = {
-      errors: {},
-    };
-    this.getAuth = this.getAuth.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  readonly state: ILoginFormState = {
+    uname: '',
+    pwd: '',
+    errors: {},
+  };
 
-  getAuth(uname: string, pwd: string) {
-    let errors: Record<string, string> = {};
-    if (uname !== 'test') {
-      errors.uname = 'Неверное имя пользователя';
-    } else if (pwd !== 'test') errors.pwd = 'Неверный пароль';
+  getAuth = (uname: string, pwd: string) => {
+    let valid = this.props.checkAuth(uname, pwd);
     this.setState((prevState: ILoginFormState) => ({
       errors: {
         ...prevState.errors,
-        ...errors,
+        uname: !valid.uValid && 'Неверное имя пользователя',
+        pwd: valid.uValid && !valid.pValid && 'Неверный пароль',
       },
     }));
-    return uname === 'test' && pwd === 'test';
-  }
+    return valid.uValid && valid.pValid;
+  };
 
-  handleSubmit(e: FormEvent<HTMLFormElement>) {
+  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    this.setState((prevState: ILoginFormState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const uname = (e.currentTarget.elements.namedItem(
-      'uname',
-    ) as HTMLInputElement).value;
-    const pwd = (e.currentTarget.elements.namedItem('pwd') as HTMLInputElement)
-      .value;
+    const { uname, pwd } = this.state;
     if (this.getAuth(uname, pwd)) {
-      this.props.onAuth(uname);
+      const previousPage = (this.props.location.state as {
+        previousPage: string;
+      }).previousPage;
+      this.props.onAuth(uname, previousPage);
     }
-  }
+  };
 
   render() {
-    const { errors } = this.state;
+    const { errors, uname, pwd } = this.state;
     return (
       <div className={styles.formWrapper}>
         <Form errors={errors} onSubmit={this.handleSubmit}>
           <Input
             name="uname"
             type="text"
+            value={uname}
             label="Логин:"
+            onChange={this.handleChange}
             placeholder="Введите логин (test)"
             required
           />
           <Input
             name="pwd"
             type="password"
+            value={pwd}
+            onChange={this.handleChange}
             placeholder="Введите пароль (test)"
             label="Пароль:"
             required

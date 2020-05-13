@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import CSS from 'csstype';
-import { dateCompare } from 'modules/dateCompare';
+import { dateCompare } from 'utils/dateCompare';
 
 import { List } from '../UI/List';
 import { Message } from 'components/Message';

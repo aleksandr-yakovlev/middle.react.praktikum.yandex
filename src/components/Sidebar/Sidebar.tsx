@@ -1,7 +1,8 @@
 import React, { FC, MouseEvent } from 'react';
 
-import { List as ChatList } from '../UI/List';
+import { List as ChatList } from 'components/UI/List';
 import { ChatItem, IChatItemProps } from '../ChatItem';
+import { UserPanel } from 'components/UserPanel';
 
 import styles from './Sidebar.module.scss';
 
@@ -26,8 +27,13 @@ export interface ISidebarProps {
   activeChat: string | undefined;
 }
 
-export const Sidebar: FC<ISidebarProps> = (props) => {
-  const { userId, chatsData, handleClickCreator, Logout, activeChat } = props;
+export const Sidebar: FC<ISidebarProps> = ({
+  userId,
+  chatsData,
+  handleClickCreator,
+  Logout,
+  activeChat,
+}) => {
   return (
     <div className={styles.sidebar}>
       <ChatList>
@@ -58,12 +64,7 @@ export const Sidebar: FC<ISidebarProps> = (props) => {
           },
         )}
       </ChatList>
-      <div className={styles.user}>
-        <p>Пользователь: {userId}</p>
-        <p onClick={Logout} className={styles.exit}>
-          Выйти
-        </p>
-      </div>
+      <UserPanel userId={userId} Logout={Logout} />
     </div>
   );
 };

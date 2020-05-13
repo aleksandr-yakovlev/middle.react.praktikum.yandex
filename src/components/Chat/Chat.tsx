@@ -5,7 +5,12 @@ import { MessageList, IMessagesData } from 'components/MessageList';
 import { MessageForm } from 'components/MessageForm';
 import { Sidebar, chatsDataType } from 'components/Sidebar';
 
-import { chatsData, getChatData } from './chats.testdata';
+import {
+  getChats,
+  getChatData,
+  sendChatMessage,
+  checkChatPermissions,
+} from './chats.testdata';
 
 import styles from './Chat.module.scss';
 
@@ -23,7 +28,11 @@ interface IChatProps {
 
 class Chat extends React.Component<IChatProps> {
   readonly state: IChatState = {
-    currentChat: this.props.currentChat,
+    currentChat:
+      this.props.currentChat &&
+      checkChatPermissions(this.props.userId, this.props.currentChat)
+        ? this.props.currentChat
+        : undefined,
     chatMessages: { users: {}, messages: [] },
     message: '',
   };
@@ -59,24 +68,25 @@ class Chat extends React.Component<IChatProps> {
   ) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      const message: string = e.currentTarget.value;
+      const message = {
+        messageId: uuidv4(),
+        authorId: Object.keys(this.state.chatMessages.users)[0],
+        text: e.currentTarget.value,
+        timestamp: new Date(),
+      };
       this.setState(
         (prevState: IChatState) => ({
           message: '',
           chatMessages: {
             ...prevState.chatMessages,
-            messages: [
-              ...prevState.chatMessages.messages,
-              {
-                messageId: uuidv4(),
-                authorId: Object.keys(prevState.chatMessages.users)[0],
-                text: message,
-                timestamp: new Date(),
-              },
-            ],
+            messages: [...prevState.chatMessages.messages, { ...message }],
           },
         }),
-        () => this.autosizer(ref),
+        () => {
+          this.autosizer(ref);
+          if (this.state.currentChat)
+            sendChatMessage(this.state.currentChat, message);
+        },
       );
     }
   };
@@ -106,12 +116,12 @@ class Chat extends React.Component<IChatProps> {
         <Sidebar
           userId={userId}
           activeChat={currentChat}
-          chatsData={this.chatsDataSort(chatsData)}
+          chatsData={this.chatsDataSort(getChats(userId))}
           handleClickCreator={this.handleClickCreator}
           Logout={Logout}
         />
         <div className={styles.main}>
-          {chatMessages ? (
+          {currentChat ? (
             <div className={styles.messages}>
               <MessageList data={chatMessages} />
               <MessageForm

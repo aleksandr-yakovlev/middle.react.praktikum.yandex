@@ -4,7 +4,7 @@ import styles from './Form.module.scss';
 
 export interface IFormProps {
   children: ReactElement<HTMLFormElement>[];
-  errors: Record<string, string | null>;
+  errors: Record<string, string | null | boolean>;
   onBlur?: (e: FocusEvent<HTMLFormElement>) => void;
 }
 

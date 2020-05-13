@@ -1,4 +1,4 @@
-import React, { FocusEvent, FormEvent } from 'react';
+import React, { FocusEvent, FormEvent, ChangeEvent } from 'react';
 
 import { Form } from 'components/UI/Form';
 import { Input } from 'components/UI/Input';
@@ -6,33 +6,48 @@ import { Input } from 'components/UI/Input';
 import styles from './RegForm.module.scss';
 
 export interface IRegFormProps {
-  onAuth: (chatId: string) => void;
+  createUser: (
+    uname: string,
+    fname: string,
+    lname: string,
+    pwd: string,
+  ) => void;
 }
 
 export interface IRegFormState {
   errors: Record<string, string | null>;
   validate: Record<string, boolean>;
+  uname: string;
+  fname: string;
+  lname: string;
+  pwd: string;
 }
 
-export class RegForm extends React.Component<IRegFormProps, IRegFormState> {
-  constructor(props: IRegFormProps) {
-    super(props);
-    this.state = {
-      errors: {},
-      validate: {},
-    };
-    this.onValidate = this.onValidate.bind(this);
-    this.regSubmit = this.regSubmit.bind(this);
-  }
+export class RegForm extends React.Component<IRegFormProps> {
+  readonly state: IRegFormState = {
+    errors: {},
+    validate: {},
+    uname: '',
+    fname: '',
+    lname: '',
+    pwd: '',
+  };
 
-  regSubmit(e: FormEvent<HTMLFormElement>) {
+  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    this.setState((prevState: IRegFormState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  regSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    this.props.onAuth(
-      (e.currentTarget.elements.namedItem('uname') as HTMLInputElement).value,
-    );
-  }
+    const { uname, fname, lname, pwd } = this.state;
+    this.props.createUser(uname, fname, lname, pwd);
+  };
 
-  onValidate(e: FocusEvent<HTMLFormElement>) {
+  onValidate = (e: FocusEvent<HTMLFormElement>) => {
     e.preventDefault();
     const regExpValid: Record<string, { regExp: RegExp; errText: string }> = {
       uname: {
@@ -54,8 +69,10 @@ export class RegForm extends React.Component<IRegFormProps, IRegFormState> {
     };
     const element = e.target;
     if (element.nodeName === 'INPUT') {
-      const isValid = regExpValid[element.name].regExp.test(element.value);
-      this.setState((prevState) => ({
+      const isValid =
+        regExpValid[element.name] &&
+        regExpValid[element.name].regExp.test(element.value);
+      this.setState((prevState: IRegFormState) => ({
         errors: {
           ...prevState.errors,
           [element.name]: isValid ? null : regExpValid[element.name].errText,
@@ -66,10 +83,10 @@ export class RegForm extends React.Component<IRegFormProps, IRegFormState> {
         },
       }));
     }
-  }
+  };
 
   render() {
-    const { errors, validate } = this.state;
+    const { errors, validate, uname, fname, lname, pwd } = this.state;
     return (
       <div className={styles.formWrapper}>
         <Form
@@ -80,27 +97,35 @@ export class RegForm extends React.Component<IRegFormProps, IRegFormState> {
           <Input
             name="uname"
             type="text"
+            value={uname}
             label="Логин:"
+            onChange={this.handleChange}
             placeholder="Введите логин"
             required
           />
           <Input
             name="fname"
             type="text"
+            value={fname}
             label="Имя:"
+            onChange={this.handleChange}
             placeholder="Введите имя"
             required
           />
           <Input
             name="lname"
             type="text"
+            value={lname}
             label="Фамилия:"
+            onChange={this.handleChange}
             placeholder="Введите фамилию"
             required
           />
           <Input
             name="pwd"
             type="password"
+            value={pwd}
+            onChange={this.handleChange}
             placeholder="Введите пароль"
             label="Пароль:"
             required
