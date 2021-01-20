@@ -2,7 +2,7 @@
 
 Yandex.Praktikum middle frontend beta graduation project
 
-Второй проет курса, после перезапуска. Уже на Vanilla.js
+Первый проект курса. В ходе проекта было принято решение изменить курс и стек в сторону Vanilla.js
 
 demo: http://aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/ \
 chatId: https://aleksandr-yakovlev.github.io/middle.react.praktikum.yandex/#/chat/24e0b6ed-9046-483a-b35d-7ef66cc3c1b8 \
